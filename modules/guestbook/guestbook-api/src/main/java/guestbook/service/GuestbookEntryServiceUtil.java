@@ -39,6 +39,64 @@ public class GuestbookEntryServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>guestbook.service.impl.GuestbookEntryServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static guestbook.model.GuestbookEntry addGuestbookEntry(
+			long userId, long guestbookId, String name, String email,
+			String message,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addGuestbookEntry(
+			userId, guestbookId, name, email, message, serviceContext);
+	}
+
+	public static guestbook.model.GuestbookEntry deleteGuestbookEntry(
+			guestbook.model.GuestbookEntry entry)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().deleteGuestbookEntry(entry);
+	}
+
+	public static guestbook.model.GuestbookEntry deleteGuestbookEntry(
+			long entryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().deleteGuestbookEntry(entryId);
+	}
+
+	public static java.util.List<guestbook.model.GuestbookEntry>
+		getGuestbookEntries(long groupId, long guestbookId) {
+
+		return getService().getGuestbookEntries(groupId, guestbookId);
+	}
+
+	public static java.util.List<guestbook.model.GuestbookEntry>
+			getGuestbookEntries(
+				long groupId, long guestbookId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+
+		return getService().getGuestbookEntries(
+			groupId, guestbookId, start, end);
+	}
+
+	public static java.util.List<guestbook.model.GuestbookEntry>
+		getGuestbookEntries(
+			long groupId, long guestbookId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<guestbook.model.GuestbookEntry> obc) {
+
+		return getService().getGuestbookEntries(
+			groupId, guestbookId, start, end, obc);
+	}
+
+	public static int getGuestbookEntriesCount(long groupId, long guestbookId) {
+		return getService().getGuestbookEntriesCount(groupId, guestbookId);
+	}
+
+	public static guestbook.model.GuestbookEntry getGuestbookEntry(long entryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getGuestbookEntry(entryId);
+	}
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -47,6 +105,17 @@ public class GuestbookEntryServiceUtil {
 	 */
 	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static guestbook.model.GuestbookEntry updateGuestbookEntry(
+			long userId, long guestbookId, long entryId, String name,
+			String email, String message,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			   com.liferay.portal.kernel.exception.SystemException {
+
+		return getService().updateGuestbookEntry(
+			userId, guestbookId, entryId, name, email, message, serviceContext);
 	}
 
 	public static GuestbookEntryService getService() {
