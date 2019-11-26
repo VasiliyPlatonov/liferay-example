@@ -49,6 +49,17 @@ public class GuestbookEntryLocalServiceWrapper
 		return _guestbookEntryLocalService.addGuestbookEntry(guestbookEntry);
 	}
 
+	@Override
+	public guestbook.model.GuestbookEntry addGuestbookEntry(
+			long userId, long guestbookId, String name, String email,
+			String message,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _guestbookEntryLocalService.addGuestbookEntry(
+			userId, guestbookId, name, email, message, serviceContext);
+	}
+
 	/**
 	 * Creates a new guestbook entry with the primary key. Does not add the guestbook entry to the database.
 	 *
@@ -65,10 +76,12 @@ public class GuestbookEntryLocalServiceWrapper
 	 *
 	 * @param guestbookEntry the guestbook entry
 	 * @return the guestbook entry that was removed
+	 * @throws PortalException
 	 */
 	@Override
 	public guestbook.model.GuestbookEntry deleteGuestbookEntry(
-		guestbook.model.GuestbookEntry guestbookEntry) {
+			guestbook.model.GuestbookEntry guestbookEntry)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _guestbookEntryLocalService.deleteGuestbookEntry(guestbookEntry);
 	}
@@ -244,6 +257,33 @@ public class GuestbookEntryLocalServiceWrapper
 		return _guestbookEntryLocalService.getGuestbookEntries(start, end);
 	}
 
+	@Override
+	public java.util.List<guestbook.model.GuestbookEntry> getGuestbookEntries(
+		long groupId, long guestbookId) {
+
+		return _guestbookEntryLocalService.getGuestbookEntries(
+			groupId, guestbookId);
+	}
+
+	@Override
+	public java.util.List<guestbook.model.GuestbookEntry> getGuestbookEntries(
+			long groupId, long guestbookId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+
+		return _guestbookEntryLocalService.getGuestbookEntries(
+			groupId, guestbookId, start, end);
+	}
+
+	@Override
+	public java.util.List<guestbook.model.GuestbookEntry> getGuestbookEntries(
+		long groupId, long guestbookId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator
+			<guestbook.model.GuestbookEntry> obc) {
+
+		return _guestbookEntryLocalService.getGuestbookEntries(
+			groupId, guestbookId, start, end, obc);
+	}
+
 	/**
 	 * Returns all the guestbook entries matching the UUID and company.
 	 *
@@ -289,6 +329,12 @@ public class GuestbookEntryLocalServiceWrapper
 	@Override
 	public int getGuestbookEntriesCount() {
 		return _guestbookEntryLocalService.getGuestbookEntriesCount();
+	}
+
+	@Override
+	public int getGuestbookEntriesCount(long groupId, long guestbookId) {
+		return _guestbookEntryLocalService.getGuestbookEntriesCount(
+			groupId, guestbookId);
 	}
 
 	/**
@@ -358,6 +404,18 @@ public class GuestbookEntryLocalServiceWrapper
 		guestbook.model.GuestbookEntry guestbookEntry) {
 
 		return _guestbookEntryLocalService.updateGuestbookEntry(guestbookEntry);
+	}
+
+	@Override
+	public guestbook.model.GuestbookEntry updateGuestbookEntry(
+			long userId, long guestbookId, long entryId, String name,
+			String email, String message,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			   com.liferay.portal.kernel.exception.SystemException {
+
+		return _guestbookEntryLocalService.updateGuestbookEntry(
+			userId, guestbookId, entryId, name, email, message, serviceContext);
 	}
 
 	@Override
