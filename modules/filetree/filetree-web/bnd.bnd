@@ -1,0 +1,4 @@
+Bundle-Name: filetree-web
+Bundle-SymbolicName: ru.xdsoft.fips.intranet.portal.filetree-web
+Bundle-Version: 1.0.0
+Export-Package: ru.xdsoft.fips.intranet.portal.filetree.constants

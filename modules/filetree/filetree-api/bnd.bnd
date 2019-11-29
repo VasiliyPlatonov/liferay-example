@@ -1,0 +1,10 @@
+Bundle-Name: filetree-api
+Bundle-SymbolicName: ru.xdsoft.fips.intranet.portal.filetree.api
+Bundle-Version: 1.0.0
+Export-Package: \
+	ru.xdsoft.fips.intranet.portal.filetree.exception,\
+	ru.xdsoft.fips.intranet.portal.filetree.model,\
+	ru.xdsoft.fips.intranet.portal.filetree.service,\
+	ru.xdsoft.fips.intranet.portal.filetree.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../filetree-service/service.xml

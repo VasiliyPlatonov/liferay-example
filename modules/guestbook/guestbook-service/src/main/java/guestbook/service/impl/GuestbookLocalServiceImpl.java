@@ -17,10 +17,13 @@ package guestbook.service.impl;
 import com.liferay.portal.aop.AopService;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.kernel.workflow.WorkflowHandlerRegistryUtil;
 import guestbook.exception.GuestbookNameException;
 import guestbook.model.Guestbook;
 import guestbook.service.base.GuestbookLocalServiceBaseImpl;
@@ -71,7 +74,14 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
 
 		Guestbook guestbook = guestbookPersistence.create(guestbookId);
 
+		guestbook.setStatus(WorkflowConstants.STATUS_DRAFT);
+		guestbook.setStatusByUserId(userId);
+		guestbook.setStatusByUserName(user.getFullName());
+		guestbook.setStatusDate(serviceContext.getModifiedDate(null));
+
+
 		guestbook.setUuid(serviceContext.getUuid());
+
 		guestbook.setUserId(userId);
 		guestbook.setGroupId(groupId);
 		guestbook.setCompanyId(user.getCompanyId());
@@ -83,11 +93,45 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
 
 		guestbookPersistence.update(guestbook);
 
+		WorkflowHandlerRegistryUtil.startWorkflowInstance(guestbook.getCompanyId(),
+				guestbook.getGroupId(), guestbook.getUserId(), Guestbook.class.getName(),
+				guestbook.getPrimaryKey(), guestbook, serviceContext);
+
+
+		return guestbook;
+	}
+
+	public Guestbook updateStatus(long userId, long guestbookId, int status,
+								  ServiceContext serviceContext) throws PortalException,
+			SystemException {
+
+		User user = userLocalService.getUser(userId);
+		Guestbook guestbook = getGuestbook(guestbookId);
+
+		guestbook.setStatus(status);
+		guestbook.setStatusByUserId(userId);
+		guestbook.setStatusByUserName(user.getFullName());
+		guestbook.setStatusDate(new Date());
+
+		guestbookPersistence.update(guestbook);
+
+//		if (status == WorkflowConstants.STATUS_APPROVED) {
+//
+//			assetEntryLocalService.updateVisible(Guestbook.class.getName(),
+//					guestbookId, true);
+//
+//		} else {
+//
+//			assetEntryLocalService.updateVisible(Guestbook.class.getName(),
+//					guestbookId, false);
+//		}
+
 		return guestbook;
 	}
 
 
-	public List<Guestbook> getGuestbooks(long groupId) {
+
+		public List<Guestbook> getGuestbooks(long groupId) {
 
 		return guestbookPersistence.findByGroupId(groupId);
 	}

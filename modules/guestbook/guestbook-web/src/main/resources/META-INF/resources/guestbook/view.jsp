@@ -2,8 +2,7 @@
 <%@ include file="../init.jsp" %>
 
 <%
-    long guestbookId = Long.valueOf((Long) renderRequest
-            .getAttribute("guestbookId"));
+    long guestbookId = Long.valueOf((Long) renderRequest.getAttribute("guestbookId"));
 %>
 
 <aui:button-row cssClass="guestbook-buttons">
@@ -18,6 +17,7 @@
 </aui:button-row>
 
 <liferay-ui:search-container total="<%=GuestbookEntryLocalServiceUtil.getGuestbookEntriesCount()%>">
+
     <liferay-ui:search-container-results
             results="<%=GuestbookEntryLocalServiceUtil.getGuestbookEntries(scopeGroupId.longValue(),
                     guestbookId, searchContainer.getStart(),

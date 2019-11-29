@@ -1,0 +1,6 @@
+Bundle-Name: filetree-service
+Bundle-SymbolicName: ru.xdsoft.fips.intranet.portal.filetree.service
+Bundle-Version: 1.0.0
+Liferay-Require-SchemaVersion: 1.0.0
+Liferay-Service: true
+-dsannotations-options: inherit

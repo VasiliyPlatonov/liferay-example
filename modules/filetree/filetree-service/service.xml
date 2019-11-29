@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.2.0//EN"
+        "http://www.liferay.com/dtd/liferay-service-builder_7_2_0.dtd">
+
+<service-builder dependency-injector="ds" package-path="ru.xdsoft.fips.intranet.portal.filetree">
+
+    <author>Vasiliy Platonov</author>
+    <namespace>FT</namespace>
+
+    <entity name="Folder" local-service="true" remote-service="true" uuid="true">
+
+        <column name="id" primary="true" type="long"/>
+        <column name="name" type="String"/>
+        <column name="parentId" type="long"/>
+
+
+        <!-- Group instance -->
+        <!--The groupId defines the ID of the Site in Liferay Portal where the entity instance exists-->
+        <column name="groupId" type="long"/>
+        <!--The companyId is the primary key of a portal instance-->
+        <column name="companyId" type="long"/>
+
+        <!-- Order -->
+        <order by="asc">
+            <order-column name="name"/>
+        </order>
+
+        <!-- Finder methods -->
+        <finder name="Name" return-type="Collection">
+            <finder-column name="name"/>
+        </finder>
+
+        <finder name="GroupId" return-type="Collection">
+            <finder-column name="groupId"/>
+        </finder>
+
+        <!-- References -->
+        <reference entity="AssetEntry" package-path="com.liferay.portlet.asset"/>
+        <reference entity="AssetTag" package-path="com.liferay.portlet.asset"/>
+    </entity>
+
+
+    <entity name="File" local-service="true" remote-service="true" uuid="true">
+
+        <column name="id" primary="true" type="long"/>
+        <column name="name" type="String"/>
+        <column name="parentId" type="long"/>
+        <column name="url" type="String"/>
+        <column name="resourceType" type="String"/>
+
+
+        <!-- Group instance -->
+        <!--The groupId defines the ID of the Site in Liferay Portal where the entity instance exists-->
+        <column name="groupId" type="long"/>
+        <!--The companyId is the primary key of a portal instance-->
+        <column name="companyId" type="long"/>
+
+        <!-- Order -->
+        <order by="asc">
+            <order-column name="name"/>
+        </order>
+
+        <!-- Finder methods -->
+        <finder name="Name" return-type="Collection">
+            <finder-column name="name"/>
+        </finder>
+
+<!--        <finder name="GroupId" return-type="Collection">-->
+<!--            <finder-column name="groupId"/>-->
+<!--        </finder>-->
+
+        <finder name="ParentId" return-type="Collection">
+            <finder-column name="parentId"/>
+        </finder>
+
+        <!-- References -->
+        <reference entity="AssetEntry" package-path="com.liferay.portlet.asset"/>
+        <reference entity="AssetTag" package-path="com.liferay.portlet.asset"/>
+    </entity>
+
+    <exceptions>
+        <exception>FolderName</exception>
+        <exception>FileName</exception>
+    </exceptions>
+</service-builder>
